@@ -25,7 +25,7 @@ var fight = function(enemyName) {
             var confirmSkip = window.confirm("There is a 10 gold penalty for skipping. Are you sure you want to skip this fight?");
 
             if (confirmSkip) {
-                window.alert(playerName + " has decided to skip this fight. Moving on to the next opponent!");
+                window.alert(playerName + " has decided to skip this fight.");
                 playerMoney = playerMoney - 10;
                 console.log("playerMoney", playerMoney);
                 break;
@@ -77,6 +77,12 @@ var startGame = function () {
             window.alert("You have lost your robot in battle! Game Over!");
             break;
         }
+        if (playerHealth  > 0 && i < enemyName.length - 1 ) {
+            var storeConfirm = window.confirm("The fight is over, visit the store before the next round?")
+            if (storeConfirm) {
+                shop();
+            }
+        }
     }
     endGame();
 }
@@ -97,5 +103,33 @@ var endGame = function() {
         window.alert ("Thank you for playing Robot Gladiatos! Come back soon!")
     }
 };
+
+var shop = function() {
+    var shopOptionPrompt = window.prompt (
+        "Would you like to REFILL your health, UPGRADE your attack, or LEAVE the shop. Please enter one 'REFILL', 'UPGRADE', or 'LEAVE' to make a choice?"
+    )
+    switch (shopOptionPrompt) {
+        case "refill" :
+        case "REFILL" :
+            window.alert("Refilling player's health by 20 for 7 dollars.");
+            playerHealth = playerHealth + 20;
+            playerMoney = playerMoney - 7;
+            break;
+        case "upgrade" :
+        case "UPGRADE" :
+            window.alert("Upgrading player's attack by 6 for 7 dollars.");
+            playerAttack = playerAttack + 6;
+            playerMoney = playerMoney - 7;
+            break;
+        case "leave" :
+        case "LEAVE" :
+            window.alert("Leaving the store.");
+            break;
+        default:
+            window.alert("You did not pick a valid option. Try again.");
+            shop();
+            break;
+    }
+}
 
 startGame();
